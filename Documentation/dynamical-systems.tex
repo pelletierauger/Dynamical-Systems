@@ -120,3 +120,9 @@ System.prototype.clone = function() {
     };
 };
 \end{lstlisting}
+
+En fait, peut-être qu'un système pourrait tout simplement cloné (et modifié) comme ça :
+\begin{lstlisting}
+var dune003 = new System(dune002);
+dune003.scale = {x: 200, y: 0};
+\end{lstlisting}
