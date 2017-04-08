@@ -2,6 +2,8 @@ var looping = true;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    translate(width / 2, height / 2);
+    background(system.backgroundColor);
     system.setup();
     if (!looping) {
         noLoop();

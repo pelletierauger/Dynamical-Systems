@@ -1,7 +1,18 @@
-var System = function(system) {
+var System = function(system, constants) {
     this.pos = system.pos || { x: 0, y: 0, z: 0 };
     this.n = system.n || 0;
-    this.constants = system.constants;
+    this.constants = constants || system.constants;
+    if (!this.constants.a) {
+        this.constants = {
+            a: constants[0],
+            b: constants[1],
+            c: constants[2],
+            d: constants[3],
+            e: constants[4],
+            f: constants[5]
+        };
+    }
+
     this.animate = system.animate || false;
     this.backgroundColor = system.backgroundColor || 0;
     this.iterationsPerFrame = system.iterationsPerFrame || 1500;
