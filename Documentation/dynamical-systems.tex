@@ -126,3 +126,61 @@ En fait, peut-être qu'un système pourrait tout simplement cloné (et modifié)
 var dune003 = new System(dune002);
 dune003.scale = {x: 200, y: 0};
 \end{lstlisting}
+
+\newpage
+\section{Affichage des systèmes dynamiques avec une matrice de densité}
+Si je veux vraiment bien faire les choses, il me faut développer un système entièrement différent pour l'affichage de mes systèmes dynamiques. C'est-à-dire que je dois me servir de ces systèmes pour remplir une grande matrice avec des informations de densité, et ensuite afficher ces densités en les visualisant. 
+
+Cette technique, beaucoup plus compliquée, me permettra de nombreuses choses. Premièrement, elle devrait être beaucoup plus rapide. Deuxièmement, elle me permettra d'afficher mes images en ajustant les courbes de couleur comme dans Photoshop, mais dans mon sketch p5.js lui-même. J'obtiendrai donc un contrôle beaucoup plus grand de la qualité de mes images. Et troisièmement, c'est avec cette technique je devrais pouvoir mélanger p5.js et Node.js et exporter d'immenses images directement sur mon disque dur, sans passer un fureteur. Ces trois bénéfices ont clairement été mentionnés ci-dessus par ordre de complexité.
+
+Je dois définir mes systèmes de façon à ce qu'ils puissent être utilisés par p5.js et par Node.js. Lorsque j'exporterai des images dans Node.js, en fait, je n'ai absolument pas besoin de passer par p5.js.
+
+\subsection{Travail initial pour comprendre l'array \textit{pixels} dans p5.js}
+\begin{lstlisting}
+function setup() {
+  createCanvas(100, 100);
+  background(0);
+  fill(255);
+  noLoop();
+  noStroke();
+}
+
+function draw() {
+  translate(width / 2, height / 2);
+  ellipse(50,0,5);
+  loadPixels();
+  console.log(pixels.length);
+  console.log(pixels[0]);
+  //This array is the size 
+  //(include an appropriate factor for pixelDensity) 
+  //of the display window x4, representing the R, G, B, A
+  console.log(200*200*4);
+  console.log(2560*2*1600*2*4);
+}
+\end{lstlisting}
+
+L'array \textit{pixels} de p5.js contient les valeurs R, G, B et A de chacun des pixels. Et quatre fois plus de pixels à cause de la densité de 2 (high density display);
+
+\begin{lstlisting}
+function draw() {
+    translate(width / 2, height / 2);
+    if (system.animate) {
+        background(system.backgroundColor);
+    }
+    
+    if (system.densityMapping) {
+        loadPixels();
+        for (var i = 0; i < system.iterationsPerFrame; i++) {
+            system.runIteratedFunction();
+            pixels[(system.pos.x + system.pos.y * width * 2) * 2];
+        }
+        updatePixels();
+    } else {
+        for (var i = 0; i < system.iterationsPerFrame; i++) {
+            system.runIteratedFunction();
+            system.runDisplayFunction();
+            console.log(system.pos.x * system.scale.x);
+        }
+    }
+}
+\end{lstlisting}

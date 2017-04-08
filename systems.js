@@ -135,5 +135,7 @@ var goyaRecreation008 = new System(goyaRecreation001, {
 });
 
 var goyaRecreation009 = new System(goyaRecreation001, [1, 1, 1, 1, 2, 0.1]);
+goyaRecreation009.densityMapping = true;
+goyaRecreation009.displayFunction = densityMaps01;
 
 var system = goyaRecreation009;

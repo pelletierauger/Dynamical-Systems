@@ -16,9 +16,19 @@ function draw() {
     if (system.animate) {
         background(system.backgroundColor);
     }
-    for (var i = 0; i < system.iterationsPerFrame; i++) {
-        system.runIteratedFunction();
-        system.runDisplayFunction();
+    if (system.densityMapping) {
+        loadPixels();
+        for (var i = 0; i < system.iterationsPerFrame; i++) {
+            system.runIteratedFunction();
+            system.runDisplayFunction();
+        }
+        updatePixels();
+    } else {
+        for (var i = 0; i < system.iterationsPerFrame; i++) {
+            system.runIteratedFunction();
+            system.runDisplayFunction();
+            // console.log(system.pos.x * system.scale.x);
+        }
     }
 }
 
