@@ -1,6 +1,4 @@
 var dune001 = new System({
-    pos: { x: 0, y: 0, z: 0 },
-    n: 0,
     constants: {
         a: 5,
         b: 3,
@@ -10,24 +8,17 @@ var dune001 = new System({
         f: 1
     },
     scale: { x: 100, y: 100 },
-    animate: false,
-    iterationsPerFrame: 1500,
-    backgroundColor: 0,
     setup: function() {
         frameRate(30);
         background(0);
-        // fill(255, 5);
-        noStroke();
+        fill(255, 5);
     },
     iteratedFunction: function(x, y, z, c) {
-        //c is a set of constants.
-        // console.log(c);
-        var v = {
+        return {
             x: sin(c.a * x) + cos(c.b * y) - tan(c.c * z),
             y: cos(c.d * y) + cos(c.e * x) + tan(c.f * z),
             z: z + 0.1
         };
-        return v;
     },
     displayFunction: function(v, n, translate, scale) {
         // var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
