@@ -18,11 +18,15 @@ var densityMaps01 = function(v, n, translate, scale) {
     //I have to write a much better algorithm that takes into consideration pixelDensity(2)
 
     //What if my algorithm would be..
-    var x = Math.round((translate.x + v.x * scale.x) * 2) / 2;
-    var y = Math.round((translate.y + v.y * scale.y) * 2) / 2;
-    var pixelToChange = (x + y * width * 2) * 2;
+    var x = Math.round((width / 2 + translate.x + v.x * scale.x) * 2) / 2;
+    var y = Math.round((height / 2 + translate.y + v.y * scale.y) * 2) / 2;
+    var pixelToChange = (x + (y * width)) * 8;
+    // console.log("x : " + x + ", y : " + y + ", pixelToChange : " + pixelToChange);
     // console.log(pixels);
-    pixels[pixelToChange] = min(pixels[pixelToChange] + 1, 255);
-    pixels[pixelToChange + 1] = min(pixels[pixelToChange + 1] + 1, 255);
-    pixels[pixelToChange + 2] = min(pixels[pixelToChange + 2] + 1, 255);
+    if (pixels[pixelToChange] != null) {
+        pixels[pixelToChange] = min(pixels[pixelToChange] + 1, 255);
+        // console.log(pixels[pixelToChange]);
+        pixels[pixelToChange + 1] = min(pixels[pixelToChange + 1] + 1, 255);
+        pixels[pixelToChange + 2] = min(pixels[pixelToChange + 2] + 1, 255);
+    }
 };
