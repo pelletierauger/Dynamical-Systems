@@ -74,7 +74,7 @@ var goyaRecreation001 = new System({
     },
     iteratedFunction: goya,
     displayFunction: function(v, n, translate, scale) {
-        ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.5);
+        ellipse((translate.x + v.x) * scale.x, (translate.y + v.y) * scale.y, 0.5);
     }
 });
 
@@ -135,7 +135,45 @@ var goyaRecreation008 = new System(goyaRecreation001, {
 });
 
 var goyaRecreation009 = new System(goyaRecreation001, [1, 1, 1, 1, 2, 0.1]);
-goyaRecreation009.densityMapping = true;
-goyaRecreation009.displayFunction = densityMaps01;
 
-var system = goyaRecreation009;
+// goyaRecreation009.densityMapping = true;
+// goyaRecreation009.displayFunction = densityMaps01;
+// goyaRecreation009.iterationsPerFrame = 200000;
+
+var goyaRecreation009zoom00 = new System(goyaRecreation009);
+goyaRecreation009zoom00.scale = { x: 800 * 2, y: 800 * 2 };
+goyaRecreation009zoom00.translate = { x: -950 / 800, y: -600 / 800 };
+goyaRecreation009zoom00.setup = function() {
+    frameRate(30);
+    fill(255, 5);
+};
+
+var goyaRecreation009zoom01 = new System(goyaRecreation009);
+goyaRecreation009zoom01.scale = { x: 800 * 1, y: 800 * 1 };
+goyaRecreation009zoom01.translate = { x: -1300 / 800, y: -300 / 800 };
+goyaRecreation009zoom01.setup = function() {
+    frameRate(30);
+    fill(255, 5);
+};
+goyaRecreation009zoom01.pos = { x: 0.1189223680421723, y: 3.348025374454316, z: 14892449.962903654 };
+goyaRecreation009zoom01.n = 152244000;
+
+var goyaRecreation009zoom02 = new System(goyaRecreation009);
+goyaRecreation009zoom02.scale = { x: 150, y: 150 };
+goyaRecreation009zoom02.translate = { x: 0.25, y: -180 / 800 };
+goyaRecreation009zoom02.setup = function() {
+    frameRate(30);
+    fill(255, 5);
+};
+goyaRecreation009zoom02.pos = { x: 0.39513654455297703, y: -5.3355301338423, z: 20017650.00416858 };
+goyaRecreation009zoom02.n = 200176500;
+
+var goyaRecreation009zoom03 = new System(goyaRecreation009);
+goyaRecreation009zoom03.scale = { x: 40, y: 40 };
+goyaRecreation009zoom03.translate = { x: 0.25, y: -180 / 800 };
+goyaRecreation009zoom03.setup = function() {
+    frameRate(30);
+    fill(255, 5);
+};
+
+var system = goyaRecreation009zoom03;
