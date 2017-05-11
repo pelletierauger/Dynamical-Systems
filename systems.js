@@ -176,4 +176,88 @@ goyaRecreation009zoom03.setup = function() {
     fill(255, 5);
 };
 
-var system = goyaRecreation009zoom03;
+
+var bigHole = new System({
+    constants: {
+        a: Math.sin(1 / 10),
+        b: Math.cos(1 / 10),
+        c: 1,
+        d: 0.1,
+        e: 1,
+        f: 1
+    },
+    scale: { x: 70, y: 200 },
+    setup: function() {
+        frameRate(30);
+        fill(255, 50);
+    },
+    iteratedFunction: function(x, y, z, c) {
+        return {
+            x: sin(c.a * x) + tan(c.b * x) - tan(c.c * z),
+            y: sin(c.d * y) + cos(c.f * z),
+            z: z + 0.1
+        };
+    },
+    displayFunction: function(v, n, translate, scale) {
+        // var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
+        // var green = map(abs(cos(n / 30)), 0, 1, 200, 40);
+        // var blue = map(abs(sin(n / 10)), 0, 1, 0, 255);
+        // blendMode(ADD);
+        // fill(red, green, blue, 255);
+        // console.log(v);
+        // fill(255);
+        // ellipse(0, 0, 25);
+        ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
+    }
+});
+
+var bigHole02 = new System(bigHole, [1, 0.995, 1, 0.1, 1, 1]);
+
+var bigHole03 = new System(bigHole, [1, 0.995, 1, 1, 1, 3]);
+
+var bigHole04 = new System(bigHole, [1 / 3, 3, 3, 3, 3, 1 / 3]);
+bigHole04.scale = { x: 70, y: 190 };
+bigHole04.setup = function() {
+    frameRate(30);
+    fill(255, 50);
+};
+bigHole04.displayFunction = function(v, n, translate, scale) {
+    var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
+    var green = map(abs(cos(n / 30)), 0, 1, 200, 40);
+    var blue = map(abs(sin(n / 10)), 0, 1, 0, 255);
+    // blendMode(ADD);
+    fill(red, green, blue, 250);
+    // console.log(v);
+    // fill(255);
+    // ellipse(0, 0, 25);
+    ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
+};
+
+var bigHole05 = new System(bigHole04, [1 / 3, 1 / 3, 1 / 3, 3, 3, 1 / 3]);
+bigHole05.displayFunction = function(v, n, translate, scale) {
+    var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
+    var green = map(abs(cos(n / 30)), 0, 1, 200, 40);
+    var blue = map(abs(sin(n / 10)), 0, 1, 0, 255);
+    // blendMode(ADD);
+    fill(red, green, blue, 5);
+    // console.log(v);
+    // fill(255);
+    // ellipse(0, 0, 25);
+    ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
+};
+
+var bigHole06 = new System(bigHole04, [4, 1 / 2, 1, 1 / 4, 1, 1]);
+bigHole06.scale = { x: 120, y: 280 };
+bigHole06.displayFunction = function(v, n, translate, scale) {
+    var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
+    var green = map(abs(cos(n / 30)), 0, 1, 200, 40);
+    var blue = map(abs(sin(n / 10)), 0, 1, 0, 255);
+    // blendMode(ADD);
+    fill(red, green, blue, 5);
+    // console.log(v);
+    // fill(255);
+    // ellipse(0, 0, 25);
+    ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
+};
+
+var system = bigHole05;
