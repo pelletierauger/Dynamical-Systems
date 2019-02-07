@@ -260,4 +260,130 @@ bigHole06.displayFunction = function(v, n, translate, scale) {
     ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
 };
 
-var system = bigHole05;
+var newSpring = new System({
+    constants: {
+        a: -2,
+        b: -5,
+        c: 2,
+        d: 1,
+        e: -3,
+        f: 1
+    },
+    scale: { x: 30, y: 100 },
+    setup: function() {
+        frameRate(30);
+        fill(255, 55);
+    },
+    iteratedFunction: function(x, y, z, c) {
+        return {
+            x: sin(c.a * x) + tan(c.b * x) - tan(c.c * z),
+            y: sin(c.d * y) + tan(c.f * z),
+            z: z + 0.1
+        };
+    },
+    displayFunction: function(v, n, translate, scale) {
+        // var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
+        // var green = map(abs(cos(n / 30)), 0, 1, 200, 40);
+        // var blue = map(abs(sin(n / 10)), 0, 1, 0, 255);
+        // blendMode(ADD);
+        // fill(red, green, blue, 255);
+        // console.log(v);
+        // fill(255);
+        // ellipse(0, 0, 25);
+        ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
+    }
+});
+
+//-----------Lueurs des nouvelles dunes bleutées, après la pluie
+var newSpring02 = new System({
+    constants: {
+        a: -0.1,
+        b: 1,
+        c: 1,
+        d: 0.1,
+        e: 0.5,
+        f: 1
+    },
+    scale: { x: 70, y: 200 },
+    setup: function() {
+        frameRate(30);
+        fill(255, 255);
+    },
+    iteratedFunction: function(x, y, z, c) {
+        return {
+            x: Math.pow(sin(c.a * x), 31) + tan(c.b * x) - tan(c.c * z),
+            y: Math.pow(sin(c.d * x) + sin(c.f * z), 3),
+            z: z + 0.001
+        };
+    },
+    displayFunction: function(v, n, translate, scale) {
+        // var red = map(abs(sin(n / 10)), 0, 1, 255, 100);
+        // var green = map(abs(cos(n / 30)), 0, 1, 200, 40);
+        // var blue = map(abs(sin(n / 10)), 0, 1, 0, 255);
+        // blendMode(ADD);
+        // fill(red, green, blue, 255);
+        // console.log(v);
+        // fill(255);
+        // ellipse(0, 0, 25);
+        ellipse(translate.x + v.x * scale.x, translate.y + v.y * scale.y, 0.2);
+    }
+});
+
+var newSpring03 = new System(newSpring02, [-0.1, 1, 1, 0.1, 0.5, 1]);
+newSpring03.iteratedFunction = function(x, y, z, c) {
+    return {
+        x: Math.pow(sin(c.a * x), 31) + tan(c.b * x) - tan(c.c * z),
+        y: Math.pow(sin(c.d * x) + sin(c.f * z), 3),
+        z: z + 1
+    };
+};
+
+var littlePlants = new System(goyaRecreation001, [2, 0, 0.001, 1, 1, 0]);
+var littlePlants02 = new System(goyaRecreation001, [2, 2, 0.001, 1, 1, 0]);
+littlePlants02.scale = { x: 1200 * 3, y: 1200 * 3 };
+littlePlants02.translate = { x: -4, y: -0.32 };
+littlePlants02.setup = function() {
+    frameRate(30);
+    fill(255, 5);
+};
+
+var littlePlants03 = new System(goyaRecreation001, [2, 2, 0.001, 1, 1, 0]);
+littlePlants03.scale = { x: 1200 * 3, y: 1200 * 3 };
+littlePlants03.translate = { x: -4, y: -0.32 };
+littlePlants02.setup = function() {
+    frameRate(30);
+    fill(255, 255);
+};
+littlePlants03.animate = false;
+littlePlants03.iterationsPerFrame = 1500;
+
+littlePlants03.iteratedFunction = function(x, y, z, c) {
+    var m = sin(10 / 1000);
+    return {
+        x: sin(c.a * x * m) + cos(c.b * y) - tan(c.c * z),
+        y: cos(c.d * y) + cos(c.e * x) + tan(c.f * z),
+        z: z + 0.1
+    };
+};
+
+var goyaSimplest = new System(goyaRecreation001, [1, 1, 1, 1, 2, 0.1]);
+goyaSimplest.iteratedFunction = function(x, y, z, c) {
+    return {
+        x: sin(x) + cos(y) - tan(z),
+        y: cos(y) + cos(x * 2) + tan(z * 0.1),
+        z: z + 0.1
+    };
+};
+goyaSimplest.setup = function() {
+    frameRate(30);
+    fill(255, 255);
+};
+
+var goyaSimplest2 = new System(goyaRecreation001, [1, 0.3, 1, 2, 0.1, 0.1]);
+goyaSimplest2.iteratedFunction = goya;
+goyaSimplest2.setup = function() {
+    frameRate(30);
+    fill(255, 255);
+};
+
+var system = goyaSimplest2;
